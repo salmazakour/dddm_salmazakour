@@ -4,6 +4,10 @@
 **Sujet :** Analyse des performances produits & satisfaction client e-commerce  
 **Stack :** Python · Flask · scikit-learn · Chart.js  
 
+## 🎯 Question Décisionnelle
+
+> **Comment identifier les produits à promouvoir, surveiller ou retirer du catalogue en combinant l'analyse des sentiments clients et les performances commerciales afin d'optimiser le chiffre d'affaires et la satisfaction client ?**
+
 ---
 
 ## 🗂️ Arborescence du Projet
@@ -11,7 +15,7 @@
 ```
 ecommerce_dddm/
 │
-├── run.py                          ← ⭐ POINT D'ENTRÉE UNIQUE
+├── run.py                          ← POINT D'ENTRÉE UNIQUE
 ├── requirements.txt                ← Dépendances Python
 ├── README.md                       ← Ce fichier
 │
@@ -22,12 +26,11 @@ ecommerce_dddm/
 │
 ├── app/
 │   ├── app.py                      ← Backend Flask + pipeline ML
-│   ├── static/                     ← (CSS/JS optionnels)
 │   └── templates/
-│       └── dashboard.html          ← Frontend dashboard interactif
+│       └── dashboard.html          ← dashboard interactif
 │
 ├── notebooks/
-│   └── DDDM_Ecommerce_Analysis.ipynb  ← Notebook analytique complet
+│   └── DDDM_Ecommerce_Analysis.ipynb  ← Notebook analytique 
 │
 ├── docs/                           ← Figures exportées par le notebook
 │
@@ -37,14 +40,10 @@ ecommerce_dddm/
 ---
 
 ## 📦 Datasets Utilisés
+                 
+| E-Commerce Transactions : [UCI Online Retail](https://www.kaggle.com/datasets/carrie1/ecommerce-data)  `data/transactions.csv` 
 
-| Dataset | Source Kaggle | Fichier local |
-|---------|--------------|---------------|
-| E-Commerce Transactions | [UCI Online Retail](https://www.kaggle.com/datasets/carrie1/ecommerce-data) | `data/transactions.csv` |
-| Product Reviews | [Amazon Fine Food Reviews](https://www.kaggle.com/datasets/snap/amazon-fine-food-reviews) | `data/reviews.csv` |
-
-> Les fichiers CSV fournis dans ce projet sont des données de démonstration structurées identiquement aux datasets Kaggle originaux.  
-> Pour utiliser les vraies données UCI : télécharger `data.csv` → renommer en `transactions.csv` → déposer dans `data/`.
+ Product Reviews : [Amazon Fine Food Reviews](https://www.kaggle.com/datasets/snap/amazon-fine-food-reviews)  `data/reviews.csv` 
 
 ---
 
@@ -58,14 +57,12 @@ ecommerce_dddm/
 ### 2. Installer les dépendances
 
 ```bash
-# Depuis la racine du projet (dossier ecommerce_dddm/)
 pip install -r requirements.txt
 ```
 
 ### 3. Lancer le Dashboard Flask
 
 ```bash
-# Depuis la racine du projet
 python run.py
 ```
 
@@ -86,28 +83,27 @@ jupyter notebook notebooks/DDDM_Ecommerce_Analysis.ipynb
 |---------|----------|-------------|
 | GET | `/` | Dashboard interactif |
 | GET | `/api/status` | Statut pipeline + métadonnées |
-| GET | `/api/kpis` | KPIs globaux (CA, commandes, clients, panier) |
+| GET | `/api/kpis`  | KPIs globaux (CA, commandes, clients, panier) |
 | GET | `/api/overview` | Revenue mensuel, pays, catégories, tests statistiques |
 | GET | `/api/products?category=&sort=revenue&limit=50` | Liste produits filtrée |
 | GET | `/api/products/all` | Tous les produits |
 | GET | `/api/sentiment` | KPIs satisfaction + top/flop produits |
 | GET | `/api/decisions` | Matrice BCG + recommandations |
 | GET | `/api/models` | Résultats des 3 modèles ML + feature importance |
-| POST | `/api/refresh` | Force recalcul du pipeline |
-| POST | `/api/upload` | Upload nouveaux CSV (form-data: `transactions`, `reviews`) |
+| POST| `/api/refresh` | Force recalcul du pipeline |
+| POST| `/api/upload` | Upload nouveaux CSV (form-data: `transactions`, `reviews`) |
 
 ---
 
 ## 📊 Fonctionnalités du Dashboard
 
-| Onglet | Contenu |
-|--------|---------|
-| 📊 Vue Globale | KPIs temps réel · Revenue mensuel · Top pays · Catégories · Jour semaine · Tests stat |
-| 📦 Produits | Filtres dynamiques · Top 15 · Courbe Pareto 80/20 · Tableau complet trié |
-| ⭐ Satisfaction | Note moyenne · % positifs/négatifs · Satisfaction par catégorie · Top/Flop |
-| 🎯 Décisions | Matrice BCG · Score Composite · Listes Promouvoir/Surveiller/Retirer · Recommandations |
-| 🤖 Modèles | Comparaison 3 modèles · AUC/F1/Precision/Recall · Feature Importance RF |
-| 🧪 A/B Test | Sliders interactifs · Calcul taille échantillon · Courbe de puissance · Protocole |
+
+|  Vue Globale : KPIs temps réel · Revenue mensuel · Top pays · Catégories · Jour semaine · Tests stat 
+|  Produits : Filtres dynamiques · Top 15 · Courbe Pareto 80/20 · Tableau complet trié 
+|  Satisfaction : Note moyenne · % positifs/négatifs · Satisfaction par catégorie · Top/Flop 
+|  Décisions : Matrice BCG · Score Composite · Listes Promouvoir/Surveiller/Retirer · Recommandations 
+|  Modèles : Comparaison 3 modèles · AUC/F1/Precision/Recall · Feature Importance RF 
+|  A/B Test : Sliders interactifs · Calcul taille échantillon · Courbe de puissance · Protocole 
 
 ---
 
@@ -135,10 +131,8 @@ transactions.csv + reviews.csv
 
 ---
 
-## 🎯 Question Décisionnelle
 
-> **Comment identifier les produits à promouvoir, surveiller ou retirer du catalogue en combinant l'analyse des sentiments clients et les performances commerciales afin d'optimiser le chiffre d'affaires et la satisfaction client ?**
 
 ---
 
-## 📅 Date Limite : 07 Juin 2026
+
