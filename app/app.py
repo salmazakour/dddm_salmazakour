@@ -160,20 +160,46 @@ def run_pipeline(tx_path, rv_path=None):
     revs = minmax([p["revenue"]   for p in products])
     rats = minmax([p["avgRating"] for p in products])
     vols = minmax([p["orders"]    for p in products])
-    rev_med = float(np.median([p["revenue"]   for p in products]))
-    rat_med = float(np.median([p["avgRating"] for p in products]))
 
     for i, p in enumerate(products):
         p["scoreRevenue"] = round(revs[i] * 40, 2)
         p["scoreSat"]     = round(rats[i] * 35, 2)
         p["scoreVol"]     = round(vols[i] * 25, 2)
         p["score"]        = round(p["scoreRevenue"] + p["scoreSat"] + p["scoreVol"], 2)
-        p["decision"]     = "promote" if p["score"] >= 60 else "watch" if p["score"] >= 35 else "retire"
-        hi_rev = p["revenue"]   >= rev_med
-        hi_rat = p["avgRating"] >= rat_med
-        p["bcg"] = ("stars" if hi_rev and hi_rat else
-                    "cash"  if hi_rev else
-                    "qm"    if hi_rat else "dogs")
+
+    # ── BCG et décision par rang percentile ────────────────────
+    # Garantit une distribution équilibrée quel que soit le dataset
+    n_prod = len(products)
+    # Rang revenue : position du produit dans le classement revenue
+    sorted_rev = sorted(range(n_prod), key=lambda i: products[i]["revenue"])
+    sorted_rat = sorted(range(n_prod), key=lambda i: products[i]["avgRating"])
+    sorted_scr = sorted(range(n_prod), key=lambda i: products[i]["score"])
+
+    rev_pct = [0.0] * n_prod
+    rat_pct = [0.0] * n_prod
+    scr_pct = [0.0] * n_prod
+    for rank, idx in enumerate(sorted_rev):
+        rev_pct[idx] = rank / max(n_prod - 1, 1) * 100
+    for rank, idx in enumerate(sorted_rat):
+        rat_pct[idx] = rank / max(n_prod - 1, 1) * 100
+    for rank, idx in enumerate(sorted_scr):
+        scr_pct[idx] = rank / max(n_prod - 1, 1) * 100
+
+    for i, p in enumerate(products):
+        # Décision : top 20% = promouvoir, bottom 20% = retirer
+        p["decision"] = ("promote" if scr_pct[i] >= 80 else
+                         "retire"  if scr_pct[i] <= 20 else "watch")
+        # BCG : médiane revenue × médiane rating → 4 quadrants ~égaux
+        hi_rev = rev_pct[i] >= 50
+        hi_rat = rat_pct[i] >= 50
+        if hi_rev and hi_rat:
+            p["bcg"] = "stars"
+        elif hi_rev and not hi_rat:
+            p["bcg"] = "cash"
+        elif not hi_rev and hi_rat:
+            p["bcg"] = "qm"
+        else:
+            p["bcg"] = "dogs"
 
     # ── 5. CLUSTERING ──────────────────────────────────────────
     feats = np.array([[p["revenue"], p["qty"], p["orders"],
@@ -219,17 +245,10 @@ def run_pipeline(tx_path, rv_path=None):
             pipe.fit(X_tr, y_tr)
             yp    = pipe.predict(X_te)
             yprob = pipe.predict_proba(X_te)[:, 1]
-            
-            # Handle NaN values in cross-validation scores
-            cv_mean = float(cv_auc.mean())
-            cv_std  = float(cv_auc.std())
-            cv_mean = cv_mean if not np.isnan(cv_mean) else 0.0
-            cv_std  = cv_std if not np.isnan(cv_std) else 0.0
-            
             model_results.append({
                 "name":      mname,
-                "cv_auc":    round(cv_mean, 3),
-                "cv_std":    round(cv_std,  3),
+                "cv_auc":    round(float(cv_auc.mean()), 3),
+                "cv_std":    round(float(cv_auc.std()),  3),
                 "test_auc":  round(float(roc_auc_score(y_te, yprob)), 3),
                 "f1":        round(float(f1_score(y_te, yp)), 3),
                 "precision": round(float(precision_score(y_te, yp, zero_division=0)), 3),
@@ -456,6 +475,7 @@ def api_decisions():
         "watch":   watch,
         "retire":  retire,
         "scores":  [p["score"] for p in prods],
+        "all_scores_by_bcg": [{"score": p["score"], "bcg": p["bcg"]} for p in prods],  
         "elbow":   data["elbow"],
     })
 
