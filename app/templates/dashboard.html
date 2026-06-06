@@ -150,32 +150,19 @@ input[type=range]{width:100%;accent-color:var(--blue)}
   </div>
   <div class="status-bar">
     <span><span class="dot"></span><span id="status-txt">Connexion...</span></span>
-    <button class="btn btn-ghost" onclick="refreshData()" style="font-size:.75rem;padding:5px 12px">🔄 Rafraîchir</button>
   </div>
 </div>
 
-<!-- UPLOAD BANNER -->
-<div class="banner">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-  <p>Chargez vos fichiers CSV réels pour actualiser le pipeline. Sources :
-    <strong><a href="https://www.kaggle.com/datasets/carrie1/ecommerce-data" target="_blank" style="color:var(--blue)">UCI Online Retail</a></strong> ·
-    <strong><a href="https://www.kaggle.com/datasets/snap/amazon-fine-food-reviews" target="_blank" style="color:var(--purple)">Amazon Reviews</a></strong>
-  </p>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <label class="btn btn-blue">📁 transactions.csv<input type="file" id="f-tx" accept=".csv" style="display:none" onchange="uploadFile('transactions',this)"></label>
-    <label class="btn btn-purple">📁 reviews.csv<input type="file" id="f-rv" accept=".csv" style="display:none" onchange="uploadFile('reviews',this)"></label>
-  </div>
-  <div class="upload-status" id="upload-status">Pipeline: en attente de données...</div>
-</div>
+
 
 <!-- TABS -->
 <div class="tabs">
-  <div class="tab active"  onclick="goTab('overview',this)">📊 Vue Globale</div>
-  <div class="tab" onclick="goTab('products',this)">📦 Produits</div>
-  <div class="tab" onclick="goTab('sentiment',this)">⭐ Satisfaction</div>
-  <div class="tab" onclick="goTab('decisions',this)">🎯 Décisions</div>
-  <div class="tab" onclick="goTab('models',this);lazyLoadModels()">🤖 Modèles</div>
-  <div class="tab" onclick="goTab('abtest',this)">🧪 A/B Test</div>
+  <div class="tab active"  onclick="goTab('overview',this)"> Vue Globale</div>
+  <div class="tab" onclick="goTab('products',this)"> Produits</div>
+  <div class="tab" onclick="goTab('sentiment',this)"> Satisfaction</div>
+  <div class="tab" onclick="goTab('decisions',this)">Décisions</div>
+  <div class="tab" onclick="goTab('models',this);lazyLoadModels()"> Modèles</div>
+  <div class="tab" onclick="goTab('abtest',this)"> A/B Test</div>
 </div>
 
 <!-- ═══════════════════ TAB 1 : OVERVIEW ═══════════════════ -->
@@ -221,7 +208,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
     <div class="chart-card"><h3>Courbe Pareto</h3><div class="sub">CA cumulé — règle 80/20</div><div class="chart-wrap" style="height:300px"><canvas id="c-pareto"></canvas></div></div>
   </div>
   <div class="chart-card">
-    <h3>📋 Tableau Produits <span id="prod-count" style="color:var(--muted);font-weight:400;font-size:.75rem"></span></h3>
+    <h3> Tableau Produits <span id="prod-count" style="color:var(--muted);font-weight:400;font-size:.75rem"></span></h3>
     <div class="sub">Données complètes issues du pipeline Python</div>
     <div class="tbl-wrap"><table>
       <thead><tr><th>#</th><th>ID</th><th>Produit</th><th>Catégorie</th><th>Revenue</th><th>Quantité</th><th>Commandes</th><th>Clients</th><th>Prix Moy.</th><th>Note</th><th>Score</th><th>Décision</th></tr></thead>
@@ -260,10 +247,10 @@ input[type=range]{width:100%;accent-color:var(--blue)}
     <div class="chart-card">
       <h3>Matrice BCG</h3><div class="sub">Segmentation Revenue × Satisfaction</div>
       <div class="bcg-grid" style="margin-top:10px">
-        <div class="bcg-cell bcg-qm"><div><div style="font-size:.85rem;font-weight:700;color:var(--yellow)">❓ Question Marks</div><div style="font-size:.7rem;opacity:.7">Bon score, faible CA</div></div><div class="bcg-count" style="color:var(--yellow)" id="bcg-qm">—</div></div>
-        <div class="bcg-cell bcg-stars"><div><div style="font-size:.85rem;font-weight:700;color:var(--green)">⭐ Stars</div><div style="font-size:.7rem;opacity:.7">Fort CA + haute satisfaction</div></div><div class="bcg-count" style="color:var(--green)" id="bcg-stars">—</div></div>
-        <div class="bcg-cell bcg-dogs"><div><div style="font-size:.85rem;font-weight:700;color:var(--red)">🐕 Dogs</div><div style="font-size:.7rem;opacity:.7">Faible CA + mauvaise note</div></div><div class="bcg-count" style="color:var(--red)" id="bcg-dogs">—</div></div>
-        <div class="bcg-cell bcg-cash"><div><div style="font-size:.85rem;font-weight:700;color:var(--blue)">🐄 Cash Cows</div><div style="font-size:.7rem;opacity:.7">Fort CA, satisfaction moyenne</div></div><div class="bcg-count" style="color:var(--blue)" id="bcg-cash">—</div></div>
+        <div class="bcg-cell bcg-qm"><div><div style="font-size:.85rem;font-weight:700;color:var(--yellow)"> Question Marks</div><div style="font-size:.7rem;opacity:.7">Bon score, faible CA</div></div><div class="bcg-count" style="color:var(--yellow)" id="bcg-qm">—</div></div>
+        <div class="bcg-cell bcg-stars"><div><div style="font-size:.85rem;font-weight:700;color:var(--green)"> Stars</div><div style="font-size:.7rem;opacity:.7">Fort CA + haute satisfaction</div></div><div class="bcg-count" style="color:var(--green)" id="bcg-stars">—</div></div>
+        <div class="bcg-cell bcg-dogs"><div><div style="font-size:.85rem;font-weight:700;color:var(--red)"> Dogs</div><div style="font-size:.7rem;opacity:.7">Faible CA + mauvaise note</div></div><div class="bcg-count" style="color:var(--red)" id="bcg-dogs">—</div></div>
+        <div class="bcg-cell bcg-cash"><div><div style="font-size:.85rem;font-weight:700;color:var(--blue)"> Cash Cows</div><div style="font-size:.7rem;opacity:.7">Fort CA, satisfaction moyenne</div></div><div class="bcg-count" style="color:var(--blue)" id="bcg-cash">—</div></div>
       </div>
     </div>
     <div class="chart-card">
@@ -277,7 +264,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
     <div class="chart-card"><div style="font-size:.75rem;color:var(--red);font-weight:700;margin-bottom:10px">❌ TOP 10 À RETIRER</div><div id="list-retire"></div></div>
   </div>
   <div class="chart-card">
-    <h3>💡 Recommandations Stratégiques</h3><div class="sub" style="margin-bottom:12px">Générées automatiquement par le pipeline</div>
+    <h3> Recommandations Stratégiques</h3><div class="sub" style="margin-bottom:12px">Générées automatiquement par le pipeline</div>
     <div id="insights"></div>
   </div>
 </div>
@@ -312,7 +299,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
   </div>
   <div class="grid g2" style="margin-bottom:16px">
     <div class="chart-card">
-      <h3>⚙️ Paramètres du Test</h3><div class="sub">Recalcul instantané via l'API Flask</div>
+      <h3> Paramètres du Test</h3><div class="sub">Recalcul instantané via l'API Flask</div>
       <div style="margin-top:14px">
         <div class="slider-row"><label>Taux de conversion baseline</label><input type="range" id="sl-base" min="1" max="10" step="0.5" value="3" oninput="calcAB()"><span class="slider-val" id="lb-base">3.0%</span></div>
         <div class="slider-row"><label>Amélioration relative attendue</label><input type="range" id="sl-eff" min="2" max="30" step="1" value="5" oninput="calcAB()"><span class="slider-val" id="lb-eff" style="color:var(--green)">5%</span></div>
@@ -322,11 +309,11 @@ input[type=range]{width:100%;accent-color:var(--blue)}
       </div>
     </div>
     <div class="chart-card">
-      <h3>📋 Protocole A/B Test</h3><div class="sub">Plan expérimental complet</div>
+      <h3> Protocole A/B Test</h3><div class="sub">Plan expérimental complet</div>
       <div style="margin-top:12px">
-        <div class="insight success"><h4>🎯 Hypothèse</h4><p><strong>H0 :</strong> Mettre en avant les Stars ne change pas la conversion.<br><strong>H1 :</strong> La mise en avant augmente la conversion de ≥5%.</p></div>
-        <div class="insight"><h4>🔬 Design</h4><p><strong>Groupe A (Contrôle) :</strong> Homepage actuelle<br><strong>Groupe B (Traitement) :</strong> Produits Stars position #1-5<br><strong>Assignation :</strong> Aléatoire, stratifiée par pays</p></div>
-        <div class="insight warn"><h4>📊 Métriques</h4><p><strong>Primaire :</strong> Taux de conversion<br><strong>Secondaires :</strong> Revenue/session · CTR Stars · AOV<br><strong>Garde-fous :</strong> Taux de rebond · Taux de retour</p></div>
+        <div class="insight success"><h4> Hypothèse</h4><p><strong>H0 :</strong> Mettre en avant les Stars ne change pas la conversion.<br><strong>H1 :</strong> La mise en avant augmente la conversion de ≥5%.</p></div>
+        <div class="insight"><h4> Design</h4><p><strong>Groupe A (Contrôle) :</strong> Homepage actuelle<br><strong>Groupe B (Traitement) :</strong> Produits Stars position #1-5<br><strong>Assignation :</strong> Aléatoire, stratifiée par pays</p></div>
+        <div class="insight warn"><h4> Métriques</h4><p><strong>Primaire :</strong> Taux de conversion<br><strong>Secondaires :</strong> Revenue/session · CTR Stars · AOV<br><strong>Garde-fous :</strong> Taux de rebond · Taux de retour</p></div>
       </div>
     </div>
   </div>
@@ -721,10 +708,10 @@ async function loadDecisions() {
     data:{
       labels: Array.from({length:bins}, (_,i) => (i*bw)+'-'+(i*bw+bw)),
       datasets:[
-        {label:'⭐ Stars',    data:histStars, backgroundColor:'rgba(67,233,123,.78)',  borderRadius:3, stack:'s'},
-        {label:'🐄 Cash Cows',data:histCash,  backgroundColor:'rgba(79,142,247,.78)',  borderRadius:3, stack:'s'},
-        {label:'❓ Questions', data:histQm,   backgroundColor:'rgba(255,209,102,.78)', borderRadius:3, stack:'s'},
-        {label:'🐕 Dogs',     data:histDogs,  backgroundColor:'rgba(247,87,106,.78)',  borderRadius:3, stack:'s'}
+        {label:' Stars',    data:histStars, backgroundColor:'rgba(67,233,123,.78)',  borderRadius:3, stack:'s'},
+        {label:' Cash Cows',data:histCash,  backgroundColor:'rgba(79,142,247,.78)',  borderRadius:3, stack:'s'},
+        {label:' Questions', data:histQm,   backgroundColor:'rgba(255,209,102,.78)', borderRadius:3, stack:'s'},
+        {label:' Dogs',     data:histDogs,  backgroundColor:'rgba(247,87,106,.78)',  borderRadius:3, stack:'s'}
       ]
     },
     options:{
@@ -748,17 +735,17 @@ async function loadDecisions() {
   const tot_rev   = [...d.promote,...d.watch,...d.retire].reduce((a,p)=>a+p.revenue,0);
   document.getElementById('insights').innerHTML=`
     <div class="insight success">
-      <h4>🥇 Recommandation 1 — Amplifier les Stars (${d.decision_counts.promote} produits)</h4>
+      <h4> Recommandation 1 — Amplifier les Stars </h4>
       <p>Ces produits représentent <strong>${((promo_rev/(tot_rev||1))*100).toFixed(1)}%</strong> du CA total.
       Action : augmenter budget publicitaire +30% sur ces références. <strong>Impact estimé : +12-18% CA / 90 jours.</strong></p>
     </div>
     <div class="insight warn">
-      <h4>🥈 Recommandation 2 — Optimiser les Question Marks (${d.decision_counts.watch} produits)</h4>
+      <h4> Recommandation 2 — Optimiser les Question Marks </h4>
       <p>Bonne satisfaction, CA insuffisant. Action : repricing + amélioration fiches produit + campagnes ciblées.
       Objectif : convertir 30% en Stars sous 6 mois.</p>
     </div>
     <div class="insight danger">
-      <h4>🥉 Recommandation 3 — Retirer les Dogs (${d.decision_counts.retire} produits)</h4>
+      <h4> Recommandation 3 — Retirer les Dogs </h4>
       <p>Faible CA et satisfaction dégradée. Action : déréférencement progressif sur 3 mois.
       <strong>Impact estimé : -8% coûts logistiques, +2pts CSAT global.</strong></p>
     </div>`;
