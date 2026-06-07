@@ -129,10 +129,3 @@ transactions.csv + reviews.csv
   pipeline_output.pkl  →  API Flask  →  Dashboard
 ```
 
----
-
-
-
----
-
-
