@@ -161,8 +161,8 @@ input[type=range]{width:100%;accent-color:var(--blue)}
   <div class="tab" onclick="goTab('products',this)"> Produits</div>
   <div class="tab" onclick="goTab('sentiment',this)"> Satisfaction</div>
   <div class="tab" onclick="goTab('decisions',this)">Décisions</div>
-  <div class="tab" onclick="goTab('models',this);lazyLoadModels()"> Modèles</div>
-  <div class="tab" onclick="goTab('abtest',this)"> A/B Test</div>
+  
+
 </div>
 
 <!-- ═══════════════════ TAB 1 : OVERVIEW ═══════════════════ -->
@@ -181,10 +181,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
     <div class="chart-card"><h3>Revenue par Catégorie</h3><div class="sub">Répartition du CA par famille produit</div><div class="chart-wrap" style="height:230px"><canvas id="c-categories"></canvas></div></div>
     <div class="chart-card"><h3>Revenue par Jour de la Semaine</h3><div class="sub">Patterns comportementaux d'achat</div><div class="chart-wrap" style="height:230px"><canvas id="c-dow"></canvas></div></div>
   </div>
-  <div class="chart-card">
-    <h3>Tests Statistiques</h3><div class="sub">Validité statistique des observations</div>
-    <div id="stat-tests" style="margin-top:10px"></div>
-  </div>
+  
 </div>
 
 <!-- ═══════════════════ TAB 2 : PRODUCTS ═══════════════════ -->
@@ -269,28 +266,9 @@ input[type=range]{width:100%;accent-color:var(--blue)}
   </div>
 </div>
 
-<!-- ═══════════════════ TAB 5 : MODELS ═══════════════════ -->
-<div class="content" id="tab-models">
-  <div class="grid g2" style="margin-bottom:16px">
-    <div class="chart-card">
-      <h3>Comparaison des 3 Modèles</h3><div class="sub">Métriques de performance — validation croisée 5-fold</div>
-      <div id="model-rows" style="margin-top:12px"></div>
-    </div>
-    <div class="chart-card">
-      <h3>Feature Importance — Random Forest</h3><div class="sub">Variables les plus discriminantes (Gini)</div>
-      <div class="chart-wrap" style="height:260px"><canvas id="c-feat-imp"></canvas></div>
-    </div>
-  </div>
-  <div class="chart-card">
-    <h3>Métriques Détaillées</h3><div class="sub">AUC-ROC, F1-Score, Precision, Recall par modèle</div>
-    <div class="tbl-wrap"><table>
-      <thead><tr><th>Modèle</th><th>CV AUC (mean)</th><th>CV AUC (std)</th><th>Test AUC</th><th>F1-Score</th><th>Precision</th><th>Recall</th></tr></thead>
-      <tbody id="tbl-models"></tbody>
-    </table></div>
-  </div>
-</div>
 
-<!-- ═══════════════════ TAB 6 : AB TEST ═══════════════════ -->
+
+<!-- ═══════════════════ AB TEST ═══════════════════ -->
 <div class="content" id="tab-abtest">
   <div class="grid g3" style="margin-bottom:16px">
     <div class="card"><div class="card-title">Taille / Groupe</div><div class="card-value" style="color:var(--purple)" id="ab-n">—</div><div class="card-sub">utilisateurs nécessaires</div></div>
